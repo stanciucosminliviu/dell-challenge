@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Validation from "../validation";
 
-class NewProduct extends Component {
+class EditProduct extends Component {
   constructor() {
     super();
     this.state = {
+      Id: "",
       Name: "",
       Category: "",
       Success: false,
@@ -14,17 +15,32 @@ class NewProduct extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+
+  componentDidMount() {
+      console.log(this.props);
+    var elementId  = this.props.location.hash.substring(2);
+    this.setState({
+        Id: elementId
+      });
+    
+      var linkToFetch = "http://localhost:2534/api/products/"+elementId;
+      
+    fetch(linkToFetch)
+    .then(res => res.json())
+      .then(json => this.setState({ Name: json.name, Category: json.category }));
+    console.log(this.state);
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     let postData = {
       Name: this.state.Name,
       Category: this.state.Category
     };
-
     if(postData.Name!=""){
-
-    fetch("http://localhost:2534/api/products", {
-      method: "POST",
+    fetch("http://localhost:2534/api/products/"+this.state.Id, {
+      method: "PUT",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -35,9 +51,8 @@ class NewProduct extends Component {
     .then(res => res.json())
     .then(this.props.history.push('/products'))
     .catch(err => console.log(err));
- 
-  }
-  else{
+}
+else{
     this.setState({ErrorColor: "red"});
   }
   };
@@ -61,13 +76,11 @@ class NewProduct extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <h4>Add new Product</h4>
+        <h4>Edit Product</h4>
         <div className="form-group">
           <label className="control-label" htmlFor="Name">
             Name
           </label>
-         
-          
           <input
             className="form-control"
             type="text"
@@ -76,11 +89,10 @@ class NewProduct extends Component {
             onChange={this.handleInputChange}
             value={this.state.Name}
           />
-          
-          <label style={{color: this.state.ErrorColor}}>
+
+        <label style={{color: this.state.ErrorColor}}>
             {this.showError()}
           </label>
-
           <span
             className="text-danger field-validation-valid"
             data-valmsg-for="Name"
@@ -114,4 +126,4 @@ class NewProduct extends Component {
   }
 }
 
-export default NewProduct;
+export default EditProduct;

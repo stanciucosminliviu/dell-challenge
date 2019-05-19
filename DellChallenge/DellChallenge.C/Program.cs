@@ -10,30 +10,44 @@ namespace DellChallenge.C
             //      1. clean coding
             //      2. naming standards
             //      3. code reusability, hence maintainability
+            //
+            //Explanation:
+            //Renamed "myObject" class into "MyObject" based on naming standards.
+            //Renamed "Do" into "DoSum" to be more clear.
+            //Renamed "DoExtended" into "DoSum" as an overload of "DoSum".
+            //Formated the second "DoSum" method.
+            //
+            //Renamed "_MyNewObject" into "myObject" based on naming conventions.
+            //Renamed "obj1" into "sumOfTwo" to be more clear.
+            //Renamed "num2" into "sumOfThree" to be more clear.
+            //Put some spaces between declarations and actions.
+           
             StartHere();
             Console.ReadKey();
         }
 
         private static void StartHere()
         {
-            myObject _MyNewObject = new myObject();
-            int obj1 = _MyNewObject.Do(1, 3);
-            int num2 = _MyNewObject.DoExtended(1, 3, 5);
-            Console.WriteLine(obj1);
-            Console.WriteLine(num2);
+            MyObject myObject = new MyObject();
+
+            int sumOfTwo = myObject.DoSum(1, 3);
+            int sumOfThree = myObject.DoSum(1, 3, 5);
+
+            Console.WriteLine(sumOfTwo);
+            Console.WriteLine(sumOfThree);
         }
     }
 
-    class myObject
+    class MyObject
     {
-
-        public int Do(int a, int b)
+        public int DoSum(int a, int b)
         {
             return a + b;
         }
 
-        public int DoExtended(int a, int b, int c)
-        { return a + b + c;
+        public int DoSum(int a, int b, int c)
+        {
+            return a + b + c;
         }
     }
 }

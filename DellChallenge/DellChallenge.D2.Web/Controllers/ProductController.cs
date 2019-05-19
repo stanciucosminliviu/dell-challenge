@@ -32,5 +32,24 @@ namespace DellChallenge.D2.Web.Controllers
             _productService.Add(newProduct);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult Delete(string id)
+        {
+            _productService.Delete(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(string id)
+        {
+            var product = _productService.Get(id);
+            return View(product);
+        }
+        [HttpPost]
+        public IActionResult Edit(ProductModel productToEdit)
+        {
+            _productService.Edit(productToEdit);
+            return RedirectToAction("Index");
+        }
     }
 }

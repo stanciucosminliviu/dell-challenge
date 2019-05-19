@@ -8,9 +8,18 @@
 
 @foreach (var item in Model)
 {
+
     <div class="row">
         <div class="col-md-4">
             @item.Name - @item.Category
+            <div class="align-items-end"></div>
+            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Update</a>
         </div>
+        @*<a class="btn btn-danger" href="@Url.Action("Delete" ,"Product", new {id=item.Id })">Delete</a>
+            <a class="btn btn-danger" href="@Url.Action("Delete" ,"Product", new {id=item.Id })">Delete</a>*@
     </div>
+   <h1> </h1>
+
 }

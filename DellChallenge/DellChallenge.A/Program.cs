@@ -7,6 +7,18 @@ namespace DellChallenge.A
         static void Main(string[] args)
         {
             // State and explain console output order.
+            //
+            //Console output:
+            //A.A()
+            //B.B()
+            //A .Age
+            //
+            //Explanation:
+            //The Main method will create a new object from B class. 
+            //The B class inherits from A class, so the program will execute A's constructor and it will write "A.A()".
+            //After that, B's constructor will be executed, so the program will write "B.B()" and will set Age variable to 0. 
+            //In Age's set method is another "Console.WriteLine" method, so the program will write "A .Age".
+            //
             new B();
             Console.ReadKey();
         }
